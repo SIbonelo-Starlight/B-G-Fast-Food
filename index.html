@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>B&G Fast Food — Order Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <h1>B&amp;G Fast Food</h1>
+      <p class="tag">Fresh plates · Pap · Braai · Delivery</p>
+    </div>
+    <div class="header-actions">
+      <input id="search" placeholder="Search dishes, e.g. chicken, pap" />
+      <button id="cart-btn" aria-label="Open cart">Cart <span id="cart-count">0</span></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <aside class="filters">
+      <h3>Categories</h3>
+      <ul>
+        <li><button class="category-btn active" data-cat="all">All</button></li>
+        <li><button class="category-btn" data-cat="plates">Plates</button></li>
+        <li><button class="category-btn" data-cat="beef">Beef</button></li>
+        <li><button class="category-btn" data-cat="pork">Pork</button></li>
+        <li><button class="category-btn" data-cat="chicken">Chicken</button></li>
+        <li><button class="category-btn" data-cat="braai">Braai</button></li>
+      </ul>
+
+      <div class="delivery">
+        <h4>Delivery</h4>
+        <label><input type="radio" name="delivery" value="delivery" checked> Delivery</label>
+        <label><input type="radio" name="delivery" value="pickup"> Pickup</label>
+      </div>
+
+      <div class="popular">
+        <h4>Popular</h4>
+        <ul id="popular-list"></ul>
+      </div>
+    </aside>
+
+    <section class="menu">
+      <h2>Menu</h2>
+      <div id="menu-grid" class="menu-grid"></div>
+    </section>
+
+    <aside class="cart" id="cart">
+      <h3>Your Cart</h3>
+      <div id="cart-items" class="cart-items"></div>
+      <div class="cart-summary">
+          <div>Delivery: <span id="cart-delivery">R0.00</span></div>
+          <div>Total: <span id="cart-total">R0.00</span></div>
+          <button id="checkout">Checkout</button>
+        </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> B&amp;G Fast Food — Local, tasty & fast.</p>
+  </footer>
+
+  <template id="menu-card-template">
+    <article class="card">
+      <div class="card-img" aria-hidden="true">
+        <div class="card-badge"></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title"></h3>
+        <p class="card-desc"></p>
+        <div class="card-meta">
+          <span class="price"></span>
+          <button class="add-btn">Add</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <!-- Cart item template (with qty controls & remove) -->
+  <template id="cart-item-template">
+    <div class="cart-item">
+      <div class="cart-left">
+        <div class="cart-item-name"></div>
+        <div class="cart-item-desc"></div>
+      </div>
+      <div class="cart-right">
+        <div class="cart-qty-controls">
+          <button class="qty-dec" aria-label="Decrease">−</button>
+          <span class="cart-qty">1</span>
+          <button class="qty-inc" aria-label="Increase">+</button>
+        </div>
+        <div class="cart-price"> <span class="cart-item-price">R0.00</span> </div>
+        <button class="qty-remove" aria-label="Remove">Remove</button>
+      </div>
+    </div>
+  </template>
+
+  <!-- Plate customization modal -->
+  <div id="custom-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <h3 id="modal-title">Customize your plate</h3>
+      <form id="custom-form">
+        <fieldset>
+          <legend>Choose a side</legend>
+          <label><input type="radio" name="side" value="pap" required> Pap</label>
+          <label><input type="radio" name="side" value="rice"> Rice</label>
+          <label><input type="radio" name="side" value="steamed bread"> Steamed Bread</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Choose exactly two salads</legend>
+          <div class="salads-list">
+            <label><input type="checkbox" name="salad" value="chakalaka"> Chakalaka</label>
+            <label><input type="checkbox" name="salad" value="coslow"> Coslow</label>
+            <label><input type="checkbox" name="salad" value="spinach"> Spinach</label>
+            <label><input type="checkbox" name="salad" value="cabbage"> Cabbage</label>
+            <label><input type="checkbox" name="salad" value="beetroot"> Beetroot</label>
+            <label><input type="checkbox" name="salad" value="tomato"> Tomato</label>
+          </div>
+          <p class="hint">Select exactly two salads</p>
+        </fieldset>
+
+        <div class="modal-actions">
+          <button type="button" id="cancel-custom">Cancel</button>
+          <button type="submit" id="save-custom">Add to Cart</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <!-- Checkout / Payment modal -->
+    <div id="checkout-modal" class="modal" aria-hidden="true">
+      <div class="modal-panel">
+        <h3>Checkout</h3>
+        <form id="checkout-form">
+          <label>Full name
+            <input type="text" name="customer-name" id="customer-name" placeholder="Your full name" required />
+          </label>
+
+          <label>Phone number
+            <input type="tel" name="customer-phone" id="customer-phone" placeholder="e.g. 071 123 4567" required />
+          </label>
+
+          <label>Email for order confirmation
+            <input type="email" name="email" id="order-email" placeholder="you@example.com" required />
+          </label>
+
+          <label>Preferred pickup time (or leave empty for ASAP)
+            <input type="time" name="pickup-time" id="pickup-time" />
+          </label>
+
+          <fieldset>
+            <legend>Payment method</legend>
+            <label><input type="radio" name="payment-method" value="card" checked> Card (test only)</label>
+            <label><input type="radio" name="payment-method" value="cod"> Cash on Delivery</label>
+          </fieldset>
+
+          <div id="card-fields">
+            <label>Card number <input type="text" name="card-number" placeholder="4242 4242 4242 4242" /></label>
+            <label>Expiry <input type="text" name="card-expiry" placeholder="MM/YY" /></label>
+            <label>CVC <input type="text" name="card-cvc" placeholder="123" /></label>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" id="cancel-checkout">Cancel</button>
+            <button type="submit" id="pay-now">Pay / Place Order</button>
+          </div>
+        </form>
+        <p class="hint" id="checkout-hint">We will send a verification email to confirm your order.</p>
+      </div>
+    </div>
+
+  <!-- EmailJS SDK (for sending order confirmation emails) -->
+  <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+  <script>
+    // Initialize EmailJS with public key
+    (function(){
+      if(window.emailjs){
+        try{ 
+          emailjs.init("-RYs-Om2c5BChtFH3");
+          console.log('EmailJS initialized successfully');
+        }catch(e){ 
+          console.error('EmailJS initialization failed:', e); 
+        }
+      }
+    })();
+  </script>
+  <script src="app.js"></script>
+  <div id="snackbar" class="snackbar" aria-live="polite"></div>
+</body>
+</html>

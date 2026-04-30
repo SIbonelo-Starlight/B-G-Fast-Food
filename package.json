@@ -1,0 +1,15 @@
+{
+  "name": "bg-fastfood",
+  "version": "1.0.0",
+  "description": "B&G Fast Food demo backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test-order.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.4",
+    "uuid": "^9.0.0"
+  }
+}

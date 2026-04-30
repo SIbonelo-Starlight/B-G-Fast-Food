@@ -1,0 +1,95 @@
+/* B&G Fast Food — styles (black + red theme) */
+:root{
+  --bg:#0b0b0b;
+  --card:#121212;
+  --accent:#d72631; /* red */
+  --muted:#9a9a9a;
+  --glass: rgba(255,255,255,0.03);
+  --max-width:1200px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+body{margin:0;background:linear-gradient(180deg,var(--bg),#0f0f0f);color:#eee;display:flex;flex-direction:column;align-items:center}
+.container{max-width:var(--max-width);width:100%;display:grid;grid-template-columns:220px 1fr 320px;gap:24px;padding:28px}
+.site-header{width:100%;background:linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2));padding:18px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--accent)}
+.brand h1{margin:0;color:var(--accent);letter-spacing:1px}
+.brand .tag{margin:2px 0 0;color:var(--muted);font-size:13px}
+.header-actions{display:flex;gap:12px;align-items:center}
+.header-actions input{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;min-width:260px}
+.header-actions button{background:var(--accent);border:none;padding:8px 12px;border-radius:8px;color:#111;font-weight:700}
+.filters{background:var(--card);padding:14px;border-radius:10px}
+.filters h3,h4{margin:0 0 8px}
+.filters ul{list-style:none;padding:0;margin:0 0 12px}
+.filters li{margin-bottom:6px}
+.category-btn{width:100%;text-align:left;padding:8px;background:transparent;border:1px solid transparent;color:var(--muted);border-radius:8px}
+.category-btn.active{background:linear-gradient(90deg, rgba(215,38,49,0.12), rgba(215,38,49,0.04));color:var(--accent);border:1px solid rgba(215,38,49,0.12)}
+.menu{padding:0 6px}
+.menu h2{margin-top:4px;color:var(--accent)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.card{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:10px;display:flex;flex-direction:column;justify-content:space-between;height:100%}
+.card-img{height:140px;border-radius:8px;background:linear-gradient(135deg,#333,#111);margin-bottom:8px;display:flex;align-items:end;padding:10px;color:#fff;position:relative;overflow:hidden}
+.card-img{background-size:cover;background-position:center}
+.card-badge{position:absolute;left:10px;top:10px;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.04);color:var(--muted);font-size:12px}
+.card-title{margin:0 0 6px}
+.card-desc{margin:0 0 12px;color:var(--muted);font-size:14px}
+.card-meta{display:flex;justify-content:space-between;align-items:center}
+.price{font-weight:800;color:var(--accent)}
+.add-btn{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:6px 10px;border-radius:8px}
+.cart{background:var(--card);padding:12px;border-radius:10px;height:fit-content;position:sticky;top:20px}
+.cart-items{max-height:420px;overflow:auto;margin:8px 0}
+.cart-item{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03)}
+.cart-summary{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+#checkout{background:var(--accent);color:#111;border:none;padding:10px 14px;border-radius:8px}
+.site-footer{width:100%;max-width:var(--max-width);padding:20px;text-align:center;color:var(--muted)}
+/* responsive */
+@media (max-width:1000px){
+  .container{grid-template-columns:1fr;}
+  .cart{order:3}
+  .filters{order:2}
+}
+
+/* small decorative badges for plate types */
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.03);font-size:12px;margin-right:6px}
+
+/* subtle hover */
+.card:hover{transform:translateY(-4px);transition:transform .18s ease}
+
+/* modal for customization */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60}
+.modal[aria-hidden="false"]{display:flex}
+.modal-panel{background:var(--card);padding:18px;border-radius:12px;width:min(720px,92%);box-shadow:0 10px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.04)}
+.modal-panel h3{color:var(--accent);margin-top:0}
+.modal-panel fieldset{border:0;margin:10px 0;padding:0}
+.modal-panel label{display:inline-flex;align-items:center;margin:6px 10px 6px 0;gap:8px}
+.salads-list{display:flex;flex-wrap:wrap}
+.hint{color:var(--muted);font-size:13px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:12px}
+.modal-actions button{padding:8px 12px;border-radius:8px;border:1px solid transparent}
+.modal-actions #cancel-custom{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
+.modal-actions #save-custom{background:var(--accent);color:#111;border:none}
+
+/* checkout card fields */
+#card-fields{display:block;margin-top:8px}
+#card-fields label{display:block;margin:6px 0}
+#checkout-hint{margin-top:8px;color:var(--muted);font-size:13px}
+
+/* cart item controls */
+.cart-item{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03);gap:10px}
+.cart-left{flex:1}
+.cart-item-name{font-weight:700}
+.cart-item-desc{color:var(--muted);font-size:13px}
+.cart-right{display:flex;align-items:center;gap:8px}
+.cart-qty-controls{display:flex;align-items:center;border:1px solid rgba(255,255,255,0.04);padding:4px;border-radius:6px}
+.cart-qty-controls button{background:transparent;border:0;color:var(--muted);padding:6px 8px}
+.qty-remove{background:transparent;border:0;color:#ff6b6b}
+.cart-item-price{font-weight:800;color:var(--accent)}
+
+/* disabled submit */
+button[disabled]{opacity:0.45;cursor:not-allowed}
+
+/* snackbar */
+.snackbar{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:rgba(0,0,0,0.85);color:#fff;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);opacity:0;transition:opacity .18s ease,transform .18s ease;z-index:120}
+.snackbar.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+
+/* add-to-cart pulse on card */
+.card.added{box-shadow:0 6px 30px rgba(215,38,49,0.15);transform:translateY(-6px) scale(1.01)}
