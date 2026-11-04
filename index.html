@@ -3,25 +3,95 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>B&G Fast Food — Order Online</title>
+  <title>B&amp;G Fast Food — Fresh Braai, Pap &amp; Plates</title>
+  <meta name="description" content="Order flame-grilled braai, hearty plates, pap and more from B&G Fast Food. Fast delivery or pickup.">
+  <meta name="theme-color" content="#120d0b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <h1>B&amp;G Fast Food</h1>
-      <p class="tag">Fresh plates · Pap · Braai · Delivery</p>
-    </div>
-    <div class="header-actions">
-      <input id="search" placeholder="Search dishes, e.g. chicken, pap" />
-      <button id="cart-btn" aria-label="Open cart">Cart <span id="cart-count">0</span></button>
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="B&G Fast Food home">
+        <span class="brand-mark">B&amp;G</span>
+        <span class="brand-text">
+          <strong>Fast Food</strong>
+          <small>Braai · Pap · Plates</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main">
+        <a href="#menu-section">Menu</a>
+        <a href="#how">How it works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm9 16-4-4"/></svg>
+          <input id="search" type="search" placeholder="Search dishes…" aria-label="Search dishes">
+        </label>
+        <button id="cart-btn" class="cart-btn" aria-label="Open cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2M10 21h.01M17 21h.01"/></svg>
+          <span class="cart-label">Cart</span>
+          <span id="cart-count" class="cart-count">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <aside class="filters">
-      <h3>Categories</h3>
-      <ul>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span> Now taking orders</span>
+        <h1>Flame-grilled <em>flavour</em>,<br>served the South African way.</h1>
+        <p class="lead">Juicy braai, hearty plates and fluffy pap — made fresh, packed hot and delivered to your door or ready for pickup.</p>
+        <div class="hero-cta">
+          <a href="#menu-section" class="btn btn-primary">Order now</a>
+          <a href="#how" class="btn btn-ghost">How it works</a>
+        </div>
+        <ul class="hero-stats">
+          <li><strong>25+</strong><span>Dishes</span></li>
+          <li><strong>30 min</strong><span>Avg. delivery</span></li>
+          <li><strong>R15</strong><span>Flat delivery</span></li>
+        </ul>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="plate">
+          <span class="plate-emoji">🍖</span>
+          <span class="float f1">🌽</span>
+          <span class="float f2">🥗</span>
+          <span class="float f3">🔥</span>
+          <span class="float f4">🍗</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERKS ============ -->
+  <section class="perks" aria-label="Why choose us">
+    <div class="perk"><span>🔥</span><div><strong>Flame grilled</strong><small>Real braai flavour</small></div></div>
+    <div class="perk"><span>🛵</span><div><strong>Fast delivery</strong><small>Hot to your door</small></div></div>
+    <div class="perk"><span>🥬</span><div><strong>Fresh salads</strong><small>Made daily</small></div></div>
+    <div class="perk"><span>💳</span><div><strong>Easy payment</strong><small>Card or cash</small></div></div>
+  </section>
+
+  <!-- ============ MENU ============ -->
+  <main class="container" id="menu-section">
+    <div class="section-head">
+      <span class="eyebrow">Our menu</span>
+      <h2>Pick your <em>favourite</em></h2>
+      <p>Choose a category or search above. Plates come with your choice of side and two salads.</p>
+    </div>
+
+    <div class="toolbar">
+      <ul class="categories" role="tablist" aria-label="Categories">
         <li><button class="category-btn active" data-cat="all">All</button></li>
         <li><button class="category-btn" data-cat="plates">Plates</button></li>
         <li><button class="category-btn" data-cat="beef">Beef</button></li>
@@ -29,165 +99,220 @@
         <li><button class="category-btn" data-cat="chicken">Chicken</button></li>
         <li><button class="category-btn" data-cat="braai">Braai</button></li>
       </ul>
-
-      <div class="delivery">
-        <h4>Delivery</h4>
-        <label><input type="radio" name="delivery" value="delivery" checked> Delivery</label>
-        <label><input type="radio" name="delivery" value="pickup"> Pickup</label>
-      </div>
-
       <div class="popular">
-        <h4>Popular</h4>
+        <span>Popular:</span>
         <ul id="popular-list"></ul>
       </div>
-    </aside>
+    </div>
 
-    <section class="menu">
-      <h2>Menu</h2>
-      <div id="menu-grid" class="menu-grid"></div>
-    </section>
-
-    <aside class="cart" id="cart">
-      <h3>Your Cart</h3>
-      <div id="cart-items" class="cart-items"></div>
-      <div class="cart-summary">
-          <div>Delivery: <span id="cart-delivery">R0.00</span></div>
-          <div>Total: <span id="cart-total">R0.00</span></div>
-          <button id="checkout">Checkout</button>
-        </div>
-    </aside>
+    <div id="menu-grid" class="menu-grid" aria-live="polite"></div>
   </main>
 
-  <footer class="site-footer">
-    <p>© <span id="year"></span> B&amp;G Fast Food — Local, tasty & fast.</p>
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="how" id="how">
+    <div class="section-head center">
+      <span class="eyebrow">Simple &amp; quick</span>
+      <h2>Order in <em>three steps</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="step-num">1</span><h3>Choose your meal</h3><p>Browse the menu and customise your plate with a side and two salads.</p></div>
+      <div class="step"><span class="step-num">2</span><h3>Checkout securely</h3><p>Enter your details and pay by card or cash on delivery.</p></div>
+      <div class="step"><span class="step-num">3</span><h3>Enjoy it hot</h3><p>We confirm by email and bring it fresh off the fire.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-art" aria-hidden="true"><span>🥩</span><span>🍗</span><span>🌽</span><span>🥗</span></div>
+      <div>
+        <span class="eyebrow">Our story</span>
+        <h2>Local, tasty <em>&amp; fast</em></h2>
+        <p>B&amp;G Fast Food is built on the love of proper South African cooking — smoky braai meats, soft pap, tangy chakalaka and fresh salads. Every plate is prepared to order, so it reaches you hot, generous and full of flavour.</p>
+        <ul class="ticks">
+          <li>Prepared fresh to order</li>
+          <li>Generous portions at fair prices</li>
+          <li>Delivery or pickup — your choice</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="#top"><span class="brand-mark">B&amp;G</span><span class="brand-text"><strong>Fast Food</strong><small>Braai · Pap · Plates</small></span></a>
+        <p class="footer-note">Fresh plates, pap and braai — delivered.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#menu-section">Menu</a>
+        <a href="#how">How it works</a>
+        <a href="#about">About us</a>
+      </div>
+      <div>
+        <h4>Opening hours</h4>
+        <p>Mon – Fri: 08:00 – 21:00</p>
+        <p>Sat – Sun: 09:00 – 22:00</p>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year"></span> B&amp;G Fast Food — Local, tasty &amp; fast.</p>
   </footer>
 
+  <!-- ============ CART DRAWER ============ -->
+  <div id="cart-overlay" class="overlay"></div>
+  <aside class="cart" id="cart" aria-label="Your cart">
+    <div class="cart-head">
+      <h3>Your Cart</h3>
+      <button id="cart-close" class="icon-btn" aria-label="Close cart">✕</button>
+    </div>
+
+    <div id="cart-items" class="cart-items"></div>
+
+    <div class="cart-foot">
+      <div class="delivery">
+        <label class="seg"><input type="radio" name="delivery" value="delivery" checked><span>🛵 Delivery</span></label>
+        <label class="seg"><input type="radio" name="delivery" value="pickup"><span>🏪 Pickup</span></label>
+      </div>
+      <div class="cart-summary">
+        <div class="row"><span>Delivery</span><span id="cart-delivery">R0.00</span></div>
+        <div class="row total"><span>Total</span><span id="cart-total">R0.00</span></div>
+        <button id="checkout" class="btn btn-primary block">Checkout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ TEMPLATES ============ -->
   <template id="menu-card-template">
     <article class="card">
       <div class="card-img" aria-hidden="true">
         <div class="card-badge"></div>
+        <span class="card-emoji"></span>
       </div>
       <div class="card-body">
         <h3 class="card-title"></h3>
         <p class="card-desc"></p>
         <div class="card-meta">
           <span class="price"></span>
-          <button class="add-btn">Add</button>
+          <button class="add-btn">+ Add</button>
         </div>
       </div>
     </article>
   </template>
 
-  <!-- Cart item template (with qty controls & remove) -->
   <template id="cart-item-template">
     <div class="cart-item">
       <div class="cart-left">
         <div class="cart-item-name"></div>
         <div class="cart-item-desc"></div>
+        <button class="qty-remove" aria-label="Remove">Remove</button>
       </div>
       <div class="cart-right">
+        <div class="cart-price"><span class="cart-item-price">R0.00</span></div>
         <div class="cart-qty-controls">
           <button class="qty-dec" aria-label="Decrease">−</button>
           <span class="cart-qty">1</span>
           <button class="qty-inc" aria-label="Increase">+</button>
         </div>
-        <div class="cart-price"> <span class="cart-item-price">R0.00</span> </div>
-        <button class="qty-remove" aria-label="Remove">Remove</button>
       </div>
     </div>
   </template>
 
-  <!-- Plate customization modal -->
+  <!-- ============ PLATE CUSTOMISATION MODAL ============ -->
   <div id="custom-modal" class="modal" aria-hidden="true">
     <div class="modal-panel">
       <h3 id="modal-title">Customize your plate</h3>
       <form id="custom-form">
         <fieldset>
           <legend>Choose a side</legend>
-          <label><input type="radio" name="side" value="pap" required> Pap</label>
-          <label><input type="radio" name="side" value="rice"> Rice</label>
-          <label><input type="radio" name="side" value="steamed bread"> Steamed Bread</label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="side" value="pap" required><span>Pap</span></label>
+            <label class="choice"><input type="radio" name="side" value="rice"><span>Rice</span></label>
+            <label class="choice"><input type="radio" name="side" value="steamed bread"><span>Steamed Bread</span></label>
+          </div>
         </fieldset>
 
         <fieldset>
           <legend>Choose exactly two salads</legend>
-          <div class="salads-list">
-            <label><input type="checkbox" name="salad" value="chakalaka"> Chakalaka</label>
-            <label><input type="checkbox" name="salad" value="coslow"> Coslow</label>
-            <label><input type="checkbox" name="salad" value="spinach"> Spinach</label>
-            <label><input type="checkbox" name="salad" value="cabbage"> Cabbage</label>
-            <label><input type="checkbox" name="salad" value="beetroot"> Beetroot</label>
-            <label><input type="checkbox" name="salad" value="tomato"> Tomato</label>
+          <div class="choices salads-list">
+            <label class="choice"><input type="checkbox" name="salad" value="chakalaka"><span>Chakalaka</span></label>
+            <label class="choice"><input type="checkbox" name="salad" value="coslow"><span>Coslow</span></label>
+            <label class="choice"><input type="checkbox" name="salad" value="spinach"><span>Spinach</span></label>
+            <label class="choice"><input type="checkbox" name="salad" value="cabbage"><span>Cabbage</span></label>
+            <label class="choice"><input type="checkbox" name="salad" value="beetroot"><span>Beetroot</span></label>
+            <label class="choice"><input type="checkbox" name="salad" value="tomato"><span>Tomato</span></label>
           </div>
           <p class="hint">Select exactly two salads</p>
         </fieldset>
 
         <div class="modal-actions">
-          <button type="button" id="cancel-custom">Cancel</button>
-          <button type="submit" id="save-custom">Add to Cart</button>
+          <button type="button" id="cancel-custom" class="btn btn-ghost">Cancel</button>
+          <button type="submit" id="save-custom" class="btn btn-primary">Add to Cart</button>
         </div>
       </form>
     </div>
   </div>
 
-    <!-- Checkout / Payment modal -->
-    <div id="checkout-modal" class="modal" aria-hidden="true">
-      <div class="modal-panel">
-        <h3>Checkout</h3>
-        <form id="checkout-form">
+  <!-- ============ CHECKOUT MODAL ============ -->
+  <div id="checkout-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <h3>Checkout</h3>
+      <form id="checkout-form">
+        <div class="form-grid">
           <label>Full name
             <input type="text" name="customer-name" id="customer-name" placeholder="Your full name" required />
           </label>
-
           <label>Phone number
             <input type="tel" name="customer-phone" id="customer-phone" placeholder="e.g. 071 123 4567" required />
           </label>
-
-          <label>Email for order confirmation
+          <label class="span2">Email for order confirmation
             <input type="email" name="email" id="order-email" placeholder="you@example.com" required />
           </label>
-
-          <label>Preferred pickup time (or leave empty for ASAP)
+          <label class="span2">Preferred pickup time (leave empty for ASAP)
             <input type="time" name="pickup-time" id="pickup-time" />
           </label>
+        </div>
 
-          <fieldset>
-            <legend>Payment method</legend>
-            <label><input type="radio" name="payment-method" value="card" checked> Card (test only)</label>
-            <label><input type="radio" name="payment-method" value="cod"> Cash on Delivery</label>
-          </fieldset>
-
-          <div id="card-fields">
-            <label>Card number <input type="text" name="card-number" placeholder="4242 4242 4242 4242" /></label>
-            <label>Expiry <input type="text" name="card-expiry" placeholder="MM/YY" /></label>
-            <label>CVC <input type="text" name="card-cvc" placeholder="123" /></label>
+        <fieldset>
+          <legend>Payment method</legend>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="payment-method" value="card" checked><span>💳 Card (test only)</span></label>
+            <label class="choice"><input type="radio" name="payment-method" value="cod"><span>💵 Cash on Delivery</span></label>
           </div>
+        </fieldset>
 
-          <div class="modal-actions">
-            <button type="button" id="cancel-checkout">Cancel</button>
-            <button type="submit" id="pay-now">Pay / Place Order</button>
-          </div>
-        </form>
-        <p class="hint" id="checkout-hint">We will send a verification email to confirm your order.</p>
-      </div>
+        <div id="card-fields" class="form-grid">
+          <label class="span2">Card number <input type="text" name="card-number" placeholder="4242 4242 4242 4242" /></label>
+          <label>Expiry <input type="text" name="card-expiry" placeholder="MM/YY" /></label>
+          <label>CVC <input type="text" name="card-cvc" placeholder="123" /></label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancel-checkout" class="btn btn-ghost">Cancel</button>
+          <button type="submit" id="pay-now" class="btn btn-primary">Pay / Place Order</button>
+        </div>
+      </form>
+      <p class="hint" id="checkout-hint">We will send a verification email to confirm your order.</p>
     </div>
+  </div>
+
+  <div id="snackbar" class="snackbar" aria-live="polite"></div>
 
   <!-- EmailJS SDK (for sending order confirmation emails) -->
   <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
   <script>
-    // Initialize EmailJS with public key
     (function(){
       if(window.emailjs){
-        try{ 
+        try{
           emailjs.init("-RYs-Om2c5BChtFH3");
           console.log('EmailJS initialized successfully');
-        }catch(e){ 
-          console.error('EmailJS initialization failed:', e); 
+        }catch(e){
+          console.error('EmailJS initialization failed:', e);
         }
       }
     })();
   </script>
   <script src="app.js"></script>
-  <div id="snackbar" class="snackbar" aria-live="polite"></div>
 </body>
 </html>

@@ -1,0 +1,170 @@
+[
+  {
+    "id": 1,
+    "name": "Plate with Wors & Pap",
+    "desc": "Grilled wors served with pap and salad",
+    "price": 85,
+    "category": "plates"
+  },
+  {
+    "id": 2,
+    "name": "Pap & Steamed Bread",
+    "desc": "Pap served with homemade steamed bread and sauce",
+    "price": 60,
+    "category": "plates"
+  },
+  {
+    "id": 3,
+    "name": "Braai Beef Plate",
+    "desc": "Tender braaied beef with pap or rice and salad",
+    "price": 120,
+    "category": "braai"
+  },
+  {
+    "id": 4,
+    "name": "Braaied Chicken",
+    "desc": "Smoked chicken, choice of pap or rice",
+    "price": 95,
+    "category": "chicken"
+  },
+  {
+    "id": 5,
+    "name": "Pork Chops with Rice",
+    "desc": "Juicy pork chops served with seasoned rice",
+    "price": 110,
+    "category": "pork"
+  },
+  {
+    "id": 6,
+    "name": "Beef Steak Plate",
+    "desc": "Grilled beef steak with salad and choice of side",
+    "price": 140,
+    "category": "beef"
+  },
+  {
+    "id": 7,
+    "name": "Chicken Wings (6)",
+    "desc": "Spicy wings served with slaw",
+    "price": 70,
+    "category": "chicken"
+  },
+  {
+    "id": 8,
+    "name": "Mixed Braai (Small)",
+    "desc": "Assorted braaied meats — pork, beef & chicken with pap",
+    "price": 180,
+    "category": "braai"
+  },
+  {
+    "id": 9,
+    "name": "Salad Bowl",
+    "desc": "Fresh mixed salad with optional grilled chicken",
+    "price": 55,
+    "category": "plates"
+  },
+  {
+    "id": 10,
+    "name": "Spicy Beef & Pap",
+    "desc": "Sliced beef with spicy sauce and pap",
+    "price": 95,
+    "category": "plates"
+  },
+  {
+    "id": 11,
+    "name": "Lamb Chops Plate",
+    "desc": "Grilled lamb chops with pap and salad",
+    "price": 150,
+    "category": "plates"
+  },
+  {
+    "id": 12,
+    "name": "Boerewors Roll",
+    "desc": "Classic wors roll with onions and sauce",
+    "price": 65,
+    "category": "plates"
+  },
+  {
+    "id": 13,
+    "name": "Grilled Fish & Rice",
+    "desc": "Seasoned grilled fish served with rice",
+    "price": 130,
+    "category": "plates"
+  },
+  {
+    "id": 14,
+    "name": "Vegetarian Plate",
+    "desc": "Mixed vegetables with pap and steamed bread",
+    "price": 75,
+    "category": "plates"
+  },
+  {
+    "id": 15,
+    "name": "Shrimp & Rice",
+    "desc": "Pan-fried shrimp served with seasoned rice",
+    "price": 145,
+    "category": "plates"
+  },
+  {
+    "id": 16,
+    "name": "Oxtail Stew Plate",
+    "desc": "Slow-cooked oxtail with pap",
+    "price": 160,
+    "category": "plates"
+  },
+  {
+    "id": 17,
+    "name": "Sosaties Plate",
+    "desc": "Skewered meat with rice and salad",
+    "price": 120,
+    "category": "plates"
+  },
+  {
+    "id": 18,
+    "name": "Beef Potjie",
+    "desc": "Traditional potjie served with pap",
+    "price": 135,
+    "category": "plates"
+  },
+  {
+    "id": 19,
+    "name": "Mixed Veg & Chicken",
+    "desc": "Grilled chicken with mixed veg and pap",
+    "price": 110,
+    "category": "plates"
+  },
+  {
+    "id": 20,
+    "name": "Peri-Peri Chicken Plate",
+    "desc": "Spicy peri-peri chicken with rice",
+    "price": 115,
+    "category": "plates"
+  },
+  {
+    "id": 21,
+    "name": "Chakalaka & Samp",
+    "desc": "Local chakalaka served with samp and pap",
+    "price": 70,
+    "category": "plates"
+  },
+  {
+    "id": 22,
+    "name": "Prawn & Steamed Bread",
+    "desc": "Prawns served with steamed bread and salad",
+    "price": 150,
+    "category": "plates"
+  },
+  {
+    "id": 23,
+    "name": "Smoked T-Bone",
+    "desc": "Smoked T-bone steak with choice of side",
+    "price": 190,
+    "category": "plates"
+  },
+  {
+    "id": 24,
+    "name": "Breakfast Plate",
+    "desc": "Eggs, wors, toast and pap (daytime special)",
+    "price": 85,
+    "category": "plates"
+  }
+]

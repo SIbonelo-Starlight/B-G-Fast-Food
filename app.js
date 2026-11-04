@@ -1,5 +1,5 @@
 // Simple static menu + cart for B&G Fast Food
-const menu = [
+let menu = [
   {id:1, name:'Plate with Wors & Pap', desc:'Grilled wors served with pap and salad', price:85, category:'plates'},
   {id:2, name:'Pap & Steamed Bread', desc:'Pap served with homemade steamed bread and sauce', price:60, category:'plates'},
   {id:3, name:'Braai Beef Plate', desc:'Tender braaied beef with pap or rice and salad', price:120, category:'braai'},
@@ -32,6 +32,19 @@ menu.push(
 
 const state = {cart:[]};
 
+// API base: same origin when served by the Node server, localhost when opened as a file
+const API_BASE = location.protocol === 'file:' ? 'http://localhost:3000' : '';
+
+// Load the live menu (managed from /admin); fall back to the built-in list if the server is unavailable
+async function loadMenu(){
+  try{
+    const r = await fetch(`${API_BASE}/api/menu`);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data = await r.json();
+    if(Array.isArray(data)) menu = data;
+  }catch(e){ console.warn('Using built-in menu (server unavailable)', e.message); }
+}
+
 // localStorage key
 const CART_KEY = 'bg_fastfood_cart_v1';
 
@@ -51,36 +64,55 @@ function $all(sel){return Array.from(document.querySelectorAll(sel))}
 
 function formatPrice(v){return `R${v.toFixed(2)}`}
 
+const TILES = {
+  plates:  'linear-gradient(135deg,#7a3b1d,#2b1710)',
+  beef:    'linear-gradient(135deg,#7d1f2a,#2a0f13)',
+  pork:    'linear-gradient(135deg,#8a4a3a,#2c1914)',
+  chicken: 'linear-gradient(135deg,#b8741a,#35200b)',
+  braai:   'linear-gradient(135deg,#a8321a,#2c120c)'
+};
+
+function emojiFor(it){
+  const n = it.name.toLowerCase();
+  if(/wing|chicken/.test(n)) return '🍗';
+  if(/wors|sosatie|roll/.test(n)) return '🌭';
+  if(/steak|t-bone|beef|oxtail|potjie/.test(n)) return '🥩';
+  if(/pork|chop|lamb/.test(n)) return '🍖';
+  if(/fish/.test(n)) return '🐟';
+  if(/shrimp|prawn/.test(n)) return '🍤';
+  if(/salad|veg/.test(n)) return '🥗';
+  if(/breakfast/.test(n)) return '🍳';
+  if(/braai/.test(n)) return '🔥';
+  if(/pap|samp|chakalaka|bread/.test(n)) return '🍲';
+  return '🍽️';
+}
+
 function renderMenu(items){
   const grid = $('#menu-grid'); grid.innerHTML='';
+  if(!items.length){
+    grid.innerHTML = '<div class="empty">😕 No dishes match your search. Try something else!</div>';
+    return;
+  }
   const tmpl = document.getElementById('menu-card-template');
-  items.forEach(it=>{
+  items.forEach((it,i)=>{
     const node = tmpl.content.cloneNode(true);
     node.querySelector('.card-title').textContent = it.name;
     node.querySelector('.card-desc').textContent = it.desc;
     node.querySelector('.price').textContent = formatPrice(it.price);
-    const img = node.querySelector('.card-img');
-    // category badge
-    const badge = node.querySelector('.card-badge');
-    badge.textContent = it.category;
-    // try local asset first
-    const slug = it.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-    const assetPath = `assets/images/${slug}.svg`;
-    // set background: prefer local asset but verify by setting url; we'll just use asset path — browser will show if present
-    img.style.backgroundImage = `linear-gradient(135deg, rgba(215,38,49,0.12), rgba(0,0,0,0.35)), url('${assetPath}'), url('data:image/svg+xml;utf8,${encodeURIComponent(generateSVG(it.name))}')`;
-    const addBtn = node.querySelector('.add-btn');
-    addBtn.addEventListener('click',()=>addToCart(it));
+    node.querySelector('.card-badge').textContent = it.category;
+    node.querySelector('.card-emoji').textContent = it.emoji || emojiFor(it);
+    if(it.imageUrl && /^(https?:\/\/|assets\/images\/)/i.test(it.imageUrl)){
+      const im = node.querySelector('.card-img');
+      im.style.backgroundImage = `url("${encodeURI(it.imageUrl)}")`;
+      im.style.backgroundSize = 'cover'; im.style.backgroundPosition = 'center';
+      node.querySelector('.card-emoji').style.display = 'none';
+    }
+    const card = node.querySelector('.card');
+    card.style.animationDelay = `${Math.min(i,12)*40}ms`;
+    node.querySelector('.card-img').style.setProperty('--tile', TILES[it.category] || TILES.plates);
+    node.querySelector('.add-btn').addEventListener('click',()=>addToCart(it));
     grid.appendChild(node);
-  })
-}
-
-function generateSVG(text){
-  const svg = `
-  <svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'>
-    <rect width='100%' height='100%' fill='%23222222' />
-    <text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-size='28' font-family='Arial'>${text}</text>
-  </svg>`;
-  return svg;
+  });
 }
 
 function addToCart(item){
@@ -187,12 +219,20 @@ function renderCart(){
 
     container.appendChild(node);
   });
+  if(!state.cart.length){
+    container.innerHTML = '<div class="cart-empty"><span>🛒</span>Your cart is empty.<br>Add something tasty!</div>';
+  }
   const subtotal = state.cart.reduce((s,i)=>s+i.price*i.qty,0);
   // delivery fee based on selected delivery option (R15 for delivery)
   const deliverySel = document.querySelector('input[name="delivery"]:checked');
   const deliveryMode = deliverySel ? deliverySel.value : 'delivery';
   const deliveryFee = deliveryMode === 'delivery' ? 15 : 0;
-  $('#cart-count').textContent = state.cart.reduce((s,i)=>s+i.qty,0);
+  const countEl = $('#cart-count');
+  const newCount = state.cart.reduce((s,i)=>s+i.qty,0);
+  if(countEl.textContent !== String(newCount)){
+    countEl.classList.remove('bump'); void countEl.offsetWidth; countEl.classList.add('bump');
+  }
+  countEl.textContent = newCount;
   $('#cart-delivery').textContent = formatPrice(deliveryFee);
   $('#cart-total').textContent = formatPrice(subtotal + deliveryFee);
   saveCart();
@@ -222,7 +262,8 @@ function pulseCardByName(name){
   }
 }
 
-function setup(){
+async function setup(){
+  await loadMenu();
   loadCart();
   renderMenu(menu);
   renderCart();
@@ -242,10 +283,14 @@ function setup(){
     renderMenu(filtered);
   });
 
-  $('#cart-btn').addEventListener('click',()=>{
-    const cartEl = document.getElementById('cart');
-    cartEl.style.display = cartEl.style.display==='block' ? 'none' : 'block';
-  });
+  const cartEl = document.getElementById('cart');
+  const overlay = document.getElementById('cart-overlay');
+  const setCart = open => { cartEl.classList.toggle('open',open); overlay.classList.toggle('show',open); };
+  $('#cart-btn').addEventListener('click',()=>setCart(!cartEl.classList.contains('open')));
+  $('#cart-close').addEventListener('click',()=>setCart(false));
+  overlay.addEventListener('click',()=>setCart(false));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') setCart(false); });
+  $all('input[name="delivery"]').forEach(r=>r.addEventListener('change',renderCart));
 
   // Checkout opens a modal to collect email and payment
   $('#checkout').addEventListener('click',()=>{
@@ -263,7 +308,7 @@ function setup(){
     checkoutForm.reset();
     checkoutModal.setAttribute('aria-hidden','false');
     // default show card fields
-    cardFields.style.display = 'block';
+    cardFields.style.display = 'grid';
   }
   function closeCheckout(){ checkoutModal.setAttribute('aria-hidden','true'); }
   cancelCheckout.addEventListener('click',()=>closeCheckout());
@@ -271,7 +316,7 @@ function setup(){
   // toggle card fields based on payment method
   Array.from(checkoutForm.elements['payment-method']).forEach(r=>r.addEventListener('change',()=>{
     const v = checkoutForm.elements['payment-method'].value;
-    cardFields.style.display = v==='card' ? 'block' : 'none';
+    cardFields.style.display = v==='card' ? 'grid' : 'none';
   }));
 
   checkoutForm.addEventListener('submit',(e)=>{
@@ -305,7 +350,7 @@ function setup(){
 
     // send order to server (include delivery info and customer details)
     const payload = { items: cartSnapshot, email, payment, delivery: deliveryMode, deliveryFee, total, customerName: name, customerPhone: phone, pickupTime };
-    fetch('http://localhost:3000/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    fetch(`${API_BASE}/order`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
       .then(r=>r.json())
       .then(j=>{
         // Order received - now send EmailJS notification
@@ -348,7 +393,7 @@ function setup(){
         // clear cart and update UI
         state.cart = [];
         renderCart();
-        closeCheckout();
+        closeCheckout(); setCart(false);
       })
       .catch(err=>{
         console.warn('Order submit failed',err);
@@ -359,7 +404,7 @@ function setup(){
   // populate popular
   const pop = document.getElementById('popular-list');
   const popular = menu.slice(0,3);
-  popular.forEach(p=>{const li=document.createElement('li');li.textContent=p.name;pop.appendChild(li)})
+  popular.forEach(p=>{const li=document.createElement('li');li.textContent=p.name;li.addEventListener('click',()=>{$('#search').value=p.name;renderMenu([p]);$all('.category-btn').forEach(b=>b.classList.toggle('active',b.dataset.cat==='all'));});pop.appendChild(li)})
 }
 
 window.addEventListener('DOMContentLoaded',setup);

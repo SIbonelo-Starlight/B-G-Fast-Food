@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>B&amp;G Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body{min-height:100vh}
+    .a-wrap{max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+    .a-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+    .a-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:24px}
+    .a-card h2{font-family:var(--serif);font-size:24px;margin-bottom:16px}
+    .login{max-width:400px;margin:12vh auto 0}
+    .login .brand{justify-content:center;margin-bottom:22px}
+    .form-grid select,.form-grid textarea{background:var(--surface-2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px 14px;outline:0;font-family:inherit;font-size:inherit}
+    .form-grid select:focus,.form-grid textarea:focus{border-color:var(--amber)}
+    .msg{min-height:22px;margin-top:12px;font-size:14px}
+    .msg.err{color:#ff7b84}.msg.ok{color:#3ddc84}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+    th{color:var(--muted);font-weight:500}
+    .tbl-wrap{overflow:auto}
+    .small-btn{background:var(--surface-2);border:1px solid var(--line);color:var(--text);padding:6px 12px;border-radius:999px;font-size:13px;margin-right:4px}
+    .small-btn:hover{border-color:var(--amber)}
+    .small-btn.danger:hover{border-color:var(--red);color:#ff7b84}
+    .tag{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--surface-2);font-size:12px;text-transform:capitalize}
+    .hidden{display:none!important}
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <section id="login-view" class="a-wrap login">
+    <a class="brand" href="/"><span class="brand-mark">B&amp;G</span><span class="brand-text"><strong>Admin Panel</strong><small>Staff only</small></span></a>
+    <form id="login-form" class="a-card form-grid" style="grid-template-columns:1fr">
+      <label>Username <input id="l-user" autocomplete="username" required></label>
+      <label>Password <input id="l-pass" type="password" autocomplete="current-password" required></label>
+      <button class="btn btn-primary block" type="submit">Log in</button>
+      <div id="login-msg" class="msg err" role="alert"></div>
+    </form>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dash-view" class="a-wrap hidden">
+    <div class="a-top">
+      <a class="brand" href="/"><span class="brand-mark">B&amp;G</span><span class="brand-text"><strong>Admin Panel</strong><small>Manage menu &amp; orders</small></span></a>
+      <div><a class="btn btn-ghost" href="/" target="_blank">View site</a> <button id="logout" class="btn btn-ghost">Log out</button></div>
+    </div>
+
+    <div class="a-card">
+      <h2 id="form-title">Add a menu item</h2>
+      <form id="item-form">
+        <div class="form-grid">
+          <label>Name <input id="f-name" maxlength="80" required></label>
+          <label>Price (R) <input id="f-price" type="number" min="0.01" max="10000" step="0.01" required></label>
+          <label>Category
+            <select id="f-cat" required>
+              <option value="plates">Plates</option><option value="beef">Beef</option><option value="pork">Pork</option>
+              <option value="chicken">Chicken</option><option value="braai">Braai</option>
+            </select>
+          </label>
+          <label>Emoji (optional) <input id="f-emoji" maxlength="4" placeholder="🍖"></label>
+          <label class="span2">Description <textarea id="f-desc" rows="2" maxlength="200"></textarea></label>
+          <label class="span2">Image URL (optional) <input id="f-img" placeholder="https://…"></label>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-primary" type="submit" id="f-submit">Add item</button>
+          <button class="btn btn-ghost hidden" type="button" id="f-cancel">Cancel edit</button>
+        </div>
+        <div id="form-msg" class="msg" role="status"></div>
+      </form>
+    </div>
+
+    <div class="a-card">
+      <h2>Menu items (<span id="count">0</span>)</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Name</th><th>Category</th><th>Price</th><th></th></tr></thead>
+        <tbody id="menu-rows"></tbody>
+      </table></div>
+    </div>
+
+    <div class="a-card">
+      <h2>Recent orders</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Date</th><th>Email</th><th>Items</th><th>Total</th><th>Verified</th></tr></thead>
+        <tbody id="order-rows"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <script src="admin.js"></script>
+</body>
+</html>
